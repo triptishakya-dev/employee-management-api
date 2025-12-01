@@ -35,19 +35,17 @@ export const postEmployee = async (req, res) => {
     // joining date validation - joining date should not be past
     if (new Date(joiningDate) < new Date()) {
       return res.status(400).json({ error: "Joining date should not be past" });
-    
-    }
-      // duplicate email validation 
-      const existingEmployee = await prisma.employee.findUnique({
-        where: {
-          officialEmail: officialEmail,
-        },
-      });
-      if (existingEmployee) 
-        return res.status(400).json({ error: "Employee with this email already exists" });
-      }
     }
 
+    // duplicate email validation 
+    const existingEmployee = await prisma.employee.findUnique({
+      where: {
+        officialEmail: officialEmail,
+      },
+    });
+    if (existingEmployee) {
+      return res.status(400).json({ error: "Employee with this email already exists" });
+    }
 
     const newEmployee = await prisma.employee.create({
       data: {
