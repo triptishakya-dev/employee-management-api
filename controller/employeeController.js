@@ -1,3 +1,11 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+
+
+
+
 export const postEmployee = async (req, res) => {
   try {
     const {
@@ -39,5 +47,17 @@ export const postEmployee = async (req, res) => {
   } catch (error) {
     console.log("error");
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
+export const getEmployees = async (req, res) => {
+  try {
+    const employees = await Prisma.Employee.findMany();
+    res.status(200).json(employees);
+  } catch (error) {
+    console.error("Error fetching employees:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
