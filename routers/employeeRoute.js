@@ -8,7 +8,7 @@ import { updateEmployee } from "../controller/employeeController.js";
 const router = express.Router();
 router.post("/api/employees", postEmployee);
 router.get("/api/employees", getEmployees);
-router.delete("/api/employees" , deleteEmployee);
+router.delete("/api/employees/:id" , deleteEmployee);
 router.put("/api/employees/:id" , updateEmployee);
 
 
