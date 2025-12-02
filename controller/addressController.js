@@ -1,3 +1,7 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 export const postAddress = async (req, res) => {
     try {
         const {
@@ -14,7 +18,7 @@ export const postAddress = async (req, res) => {
             return res.status(400).json({ error: "All fields are required" })
         }
 
-        const existingEmployee = await Prisma.employee.findUnique({
+        const existingEmployee = await prisma.employee.findUnique({
             where: { id: Number(employeeId) },
         })
 
@@ -24,7 +28,7 @@ export const postAddress = async (req, res) => {
         }
 
 
-        const newAddress = await Prisma.Address.create({
+        const newAddress = await prisma.Address.create({
             data: {
                 types,
                 street,
