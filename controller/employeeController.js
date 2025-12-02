@@ -94,7 +94,7 @@ export const deleteEmployee = async (req, res) => {
     }
 
     const existingEmployee = await prisma.employee.findUnique({
-      where: { nid: Number(id) },
+      where: { id: Number(id) },
     });
 
     if (!existingEmployee) {
@@ -113,9 +113,11 @@ export const deleteEmployee = async (req, res) => {
 };
 
 // update all field
-const updateEmployee = async (req, res) => {
+  export const updateEmployee = async (req, res) => {
   try {
+    console.log(req.params)
     const { id } = req.params;
+    console.log(id)
 
     if (!id || id.trim() === "") {
       return res.status(400).json({ error: "Employee id is required" });
