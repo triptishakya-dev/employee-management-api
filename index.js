@@ -1,9 +1,20 @@
 import express from "express";
+import cors from "cors";
 import employeeRoute from "./routers/employeeRoute.js";
 import addressRoute from "./routers/addressRoute.js";
 const app= express();
 
-const port = 3000;
+const port = 8000;
+
+
+
+app.use(cors({
+    origin: "http://localhost:3000", 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}))
+
+
 
 
  app.get("/" , (req,res) =>{
