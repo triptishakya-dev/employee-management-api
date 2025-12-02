@@ -20,7 +20,7 @@ export const postEmployee = async (req, res) => {
       !officialEmail ||
       !department ||
       !designation ||
-      !salary ||
+    !salary ||
       !joiningDate
     ) {
       return res.status(400).json({ error: "All fields are required" });
