@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const postAddress = async (req, res) => {
+    console.log("api is running")
+    console.log(req.body)
     try {
         const {
             types,
@@ -13,10 +15,14 @@ export const postAddress = async (req, res) => {
             country,
             employeeId
         } = req.body;
+        
 
-        if (!types || !street || !city || !state || !pincode || !country || !employeeId) {
-            return res.status(400).json({ error: "All fields are required" })
-        }
+
+
+
+        // if (!types || !street || !city || !state || !pincode || !country || !employeeId) {
+        //     return res.status(400).json({ error: "All fields are required" })
+        // }
 
         const existingEmployee = await prisma.employee.findUnique({
             where: { id: Number(employeeId) },
@@ -48,3 +54,19 @@ export const postAddress = async (req, res) => {
         return res.status(500).json({ error: "Internal server error" })
     }
 }
+
+
+
+
+export const getAddresses = async (req, res) => {
+  try {
+    const addresses = await prisma.Address .findMany();
+    console.log(addresses);
+    res
+      .status(200)
+      .json({ message: "Addresses fetched successfully", addresses });
+  } catch (error) {
+    console.error("Error fetching addresses:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
